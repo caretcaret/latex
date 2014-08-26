@@ -1,0 +1,6 @@
+.DS_Store
+template.aux
+template.fdb_latexmk
+template.log
+template.out
+template.synctex.gz

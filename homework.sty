@@ -1,0 +1,238 @@
+%-------------------------%
+% Ultimate LaTeX template %
+%-------------------------%
+
+% You should install python and pygments (sudo easy_install pygments) and compile LaTeX
+% using the -shell-escape argument in order to take advantage of syntax highlighting.
+%
+% To use the template,
+% \documentclass{article}
+% \usepackage{homework}
+%
+% define languages for syntax highlighting
+% use \begin{langcode} \end{langcode} for block code and \langshort"something" for one liners
+%\newlanguage{sml}
+%\newlanguage{python}
+%\newlanguage{c}
+%\newlanguage{bash}
+%\newlanguage{latex}
+%
+% for use with \homeworkheader
+%\renewcommand{\myname}{Jeffrey Zhang}
+%\renewcommand{\myandrewid}{jczhang}
+%\renewcommand{\mydate}{\today}
+%\renewcommand{\mycourse}{15-359 A: Probability and Computing}
+%\renewcommand{\myhwname}{\LaTeX{} Template}
+%\renewcommand{\mynote}{Collaborators: none}
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{homework}[2014/08/25 Homework Template]
+
+\ProcessOptions\relax
+
+%----------------------------%
+% packages and configuration %
+%----------------------------%
+
+% LaTeX2e kernel bugfixes
+\usepackage{fixltx2e}
+
+% page size
+% other options: a1paper, or for custom: paperwidth=8.5in, paperheight=11in
+\usepackage[letterpaper]{geometry}
+
+% margins: default margins are typographically optimal, but doesn't fit much text
+% make 1in margins:
+\usepackage{fullpage}
+% make 1.5cm margins:
+% \usepackage[cm]{fullpage}
+
+% change default font to look more fancy
+\renewcommand{\sfdefault}{bch}
+\usepackage{inconsolata}
+\renewcommand*{\familydefault}{\sfdefault}
+
+% line spacing
+\linespread{1.1}
+
+% headers and footers
+\usepackage{fancyhdr}
+
+% determine last page
+\usepackage{lastpage}
+
+% calculate lengths in LaTeX
+\usepackage{calc}
+
+% Set up the header and footer
+\pagestyle{fancy}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt} % don't display header
+\lfoot{\myname~(\myandrewid)} % Bottom left footer
+\cfoot{\myhwname} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref*{LastPage}} % Bottom right footer
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+% colors
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+% section heading colors
+\usepackage[compact]{titlesec}
+\titleformat*{\section}{\normalfont\Large\bfseries\color{flair}}
+\titleformat*{\subsection}{\normalfont\large\bfseries\color{flair}}
+\titleformat*{\subsubsection}{\normalfont\normalsize\bfseries\color{flair}}
+\titleformat*{\paragraph}{\normalfont\normalsize\bfseries\color{flair}}
+\titleformat*{\subparagraph}{\normalfont\normalsize\bfseries\color{flair}}
+
+% math
+\usepackage{amsmath, amsfonts, amsthm, amssymb}
+% fix amsmath quirks
+\usepackage{mathtools}
+% allow bold greek letters
+\usepackage{bm}
+% theorem environments
+\usepackage{mdframed}
+\theoremstyle{plain}
+
+\mdfdefinestyle{quoted}{
+hidealllines=true,
+leftline=true,
+innertopmargin=5pt,
+innerbottommargin=5pt,
+linewidth=4pt,
+linecolor=gray!40,
+backgroundcolor=gray!5,
+innerrightmargin=5pt,
+skipabove=\topsep,
+skipbelow=\topsep}
+\mdfdefinestyle{theorem}{style=quoted,linecolor=theoremline,backgroundcolor=theorembg}
+\mdfdefinestyle{exercise}{style=quoted,linecolor=exerciseline,backgroundcolor=exercisebg}
+\mdfdefinestyle{remark}{style=quoted,linecolor=remarkline,backgroundcolor=remarkbg}
+\mdfdefinestyle{warning}{style=quoted,linecolor=warningline,backgroundcolor=warningbg}
+
+\newmdtheoremenv[style=theorem]{theorem}{Theorem}[section]
+\newmdtheoremenv[style=theorem]{lemma}[theorem]{Lemma}
+\newmdtheoremenv[style=theorem]{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+
+\newmdtheoremenv[style=theorem]{definition}[theorem]{Definition}
+\newmdtheoremenv[style=theorem]{example}[theorem]{Example}
+\newmdtheoremenv[style=theorem]{conjecture}[theorem]{Conjecture}
+\newmdtheoremenv[style=exercise]{exercise}{Exercise}[section]
+\newmdtheoremenv[style=exercise]{problem}[exercise]{Problem}
+\newmdtheoremenv[style=exercise]{question}[exercise]{Question}
+\newmdtheoremenv[style=exercise]{task}[exercise]{Task}
+
+\theoremstyle{remark}
+
+\newtheorem*{remark}{Remark}
+\surroundwithmdframed[style=remark]{remark}
+\newtheorem*{warning}{Warning}
+\surroundwithmdframed[style=warning]{warning}
+\newtheorem*{solution}{Solution}
+
+% code
+% syntax highlighting
+\usepackage{minted}
+% change line number style
+\renewcommand{\theFancyVerbLine}{
+  \sffamily\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize\arabic{FancyVerbLine}}}
+% color scheme
+\usemintedstyle{default}
+% verbatim mode: \begin{verbatim} \end{verbatim}
+\usepackage{verbatim}
+
+% pseudocode
+\usepackage{algorithmicx} % use /begin{algorithmic}[1] for line numbers
+\usepackage{algpseudocode}
+% line number fix
+\algrenewcommand{\alglinenumber}[1]{\color[rgb]{0.5,0.5,0.5}\scriptsize#1}
+
+% disable paragraph indents
+\setlength\parindent{0pt}
+
+% pdf links
+% use a link with \hyperref[label_name]{link text}
+% use a url with \url{url}
+% use a href with \href{url}{Text}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,pdfborder={1 1 1 [3]},%
+citebordercolor={.6 .6 .6},linkbordercolor={.6 .6 .6},%
+citecolor=linkcolor,urlcolor=linkcolor,linkcolor=linkcolor}
+
+% allow images
+% use an image with \includegraphics{filename}
+\usepackage{graphicx}
+
+% tikz
+\usepackage{tikz}
+
+% override enumeration styles
+% usage: \begin{enumerate}[(a)]
+\usepackage{enumerate}
+
+% fix typography
+\usepackage{microtype}
+
+%--------%
+% macros %
+%--------%
+\usepackage{xifthen}
+\newcommand{\ifempty}[3]{%
+  \ifthenelse{\isempty{#1}}{#2}{#3}%
+}
+% homework header
+\newcommand{\homeworkheader}{
+  \makebox[\textwidth]{
+    \colorbox{headerbg}{
+      \vbox{
+        \vspace{3mm}
+        \hbox to \textwidth { {\bf \large \color{flair} \mycourse \hfill \myhwname} }
+        \hbox to \textwidth { \myname~(\texttt{\myandrewid @andrew.cmu.edu}) \hfill \mydate }
+        % include a note only if it is defined
+        \ifcsname mynote\endcsname % include a note only if it is defined
+        	\hbox to \textwidth { \mynote \hfill }
+        \fi
+        \vspace{3mm}
+      }
+    }
+  }
+}
+
+\renewcommand{\newlanguage}[1]{
+% use mathescape to render LaTeX in code
+\newminted{#1}{linenos,numbersep=5pt,bgcolor=codebg,tabsize=2}
+\newmint[#1short]{#1}{bgcolor=codebg}}
+
+% math shortcuts
+\DeclareMathOperator*{\Var}{Var}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\powerset}{\mathcal{P}}
+\newcommand{\integral}[4]{\int_{#1}^{#2} #3 \,\mathrm{d}#4}
+\newcommand{\derivative}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
+
+%--------------%
+% theme colors %
+%--------------%
+
+% letter digits must be capitalized
+\definecolor{flair}{HTML}{046380} % refers to the color of the titles/headings
+\definecolor{headerbg}{HTML}{F9F8EC}
+\definecolor{codebg}{HTML}{F9F8EC}
+\definecolor{theoremline}{HTML}{99CFFF}
+\definecolor{theorembg}{HTML}{E5F3FF}
+\definecolor{exerciseline}{HTML}{99FF99}
+\definecolor{exercisebg}{HTML}{E5FFE5}
+\definecolor{remarkline}{HTML}{FFFF99}
+\definecolor{remarkbg}{HTML}{FFFFCC}
+\definecolor{warningline}{HTML}{FF9999}
+\definecolor{warningbg}{HTML}{FFE5E5}
+\definecolor{linkcolor}{HTML}{079CCA}
+
+%-------------%
+% end package %
+%-------------%
+\endinput
